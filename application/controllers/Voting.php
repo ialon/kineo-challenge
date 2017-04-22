@@ -18,25 +18,31 @@ class Voting extends CI_Controller {
 		$data['state'] = '';
 		$statenames = [];
 
+		$data['kineo_state'] = get_cookie('kineo_state');
+		$data['kineo_intention'] = get_cookie('kineo_intention');
+
 
 
 
 		// INTENTION TO VOTE VALIDATION
-		$kineo_state = get_cookie('kineo_state');
-		$kineo_intention = get_cookie('kineo_intention');
-
 		if (isset($_GET['vote'])) {
 			$data['vote'] = $_GET['vote'];
 
-			if ($kineo_intention) {
-				if ($kineo_intention != $_GET['vote']) {
-					redirect('./voting?state=' . $kineo_state . '&vote=' . $kineo_intention);
+			if ($data['kineo_intention']) {
+				if ($data['kineo_intention'] != $_GET['vote']) {
+					redirect('./voting?state=' . $data['kineo_state'] . '&vote=' . $data['kineo_intention']);
 				}
 			} else {
-				set_cookie('kineo_intention', $_GET['vote'], 2592000);
+				if ($data['kineo_state'] && ($_GET['vote'] === 'TRUE' || $_GET['vote'] === 'FALSE')) {
+					$this->intention->writeVoteIntention($data['kineo_state'], $_GET['vote']);
+					$data['kineo_intention'] = $_GET['vote'];
+					set_cookie('kineo_intention', $_GET['vote'], 2592000);
+				} else {
+					redirect('./voting?state=' . $data['kineo_state']);
+				}
 			}
-		} else if ($kineo_state && $kineo_intention) {
-			redirect('./voting?state=' . $kineo_state . '&vote=' . $kineo_intention);
+		} else if ($data['kineo_state'] && $data['kineo_intention']) {
+			redirect('./voting?state=' . $data['kineo_state'] . '&vote=' . $data['kineo_intention']);
 		}
 
 
@@ -74,12 +80,11 @@ class Voting extends CI_Controller {
 
 
 		// STATE MUST BE DEFINED
-		$kineo_state = get_cookie('kineo_state');
-		if ($kineo_state) {
+		if ($data['kineo_state']) {
 			if (!isset($_GET['state'])) {
-				redirect('./voting?state=' . $kineo_state);
-			} else if ($kineo_state != $_GET['state']) {
-				redirect('./voting?state=' . $kineo_state);
+				redirect('./voting?state=' . $data['kineo_state']);
+			} else if ($data['kineo_state'] != $_GET['state']) {
+				redirect('./voting?state=' . $data['kineo_state']);
 			}
 		} 
 

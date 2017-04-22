@@ -77,9 +77,9 @@
 					<fieldset>
 						<div class="form-group yes-no-buttons">
 							<div class="col-lg-10">
-								<div class="btn-group btn-group-justified">
-								  <button class="btn btn-success">YES!</button>
-								  <button class="btn btn-danger">NO</button>
+								<div class="btn-group btn-group-justified <?php echo $kineo_intention ?> ">
+								    <a <?php echo ($kineo_intention ? 'disabled' : '') ?> href="voting?state=<?php echo $kineo_state ?>&vote=TRUE" class="btn btn-success option-true">YES!</a>
+								    <a <?php echo ($kineo_intention ? 'disabled' : '') ?> href="voting?state=<?php echo $kineo_state ?>&vote=FALSE" class="btn btn-danger option-false">NO</a>
 								</div>
 								<?php echo $voting_results ?>
 							</div>

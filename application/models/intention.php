@@ -13,5 +13,16 @@
 
 			return $results;
 		}
+
+		function writeVoteIntention($state, $intention)
+		{
+			$bool_value = $intention === 'TRUE' ? 1 : 0;
+			$data = array(
+		        'state' => $state,
+		        'intention' => $bool_value
+	        );
+
+	        $this->db->insert('intention', $data);
+		}
 	}
 ?>

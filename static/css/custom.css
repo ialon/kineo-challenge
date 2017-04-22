@@ -68,11 +68,22 @@ body {
     background-color: #ff4136;
 }
 
-.yes-no-buttons button {
+.yes-no-buttons .btn-group-justified {
+    margin: 40px 0px;
+}
+
+.yes-no-buttons a {
     width: 50% !important;
     height: 100px;
-    margin: 30px 0px !important;
     font-size: 30px;
+}
+
+.FALSE .option-true,
+.TRUE .option-false,
+.FALSE .option-true:hover,
+.TRUE .option-false:hover {
+    background: #717171;
+    border-color: #a3a3a3;
 }
 
 .btn-primary {
