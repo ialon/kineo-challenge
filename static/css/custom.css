@@ -58,7 +58,7 @@ body {
 
 
 
-/*	VOTING 	*/
+/*	VOTING INTENTION 	*/
 .yes-no-buttons {
     width: 80%;
     margin: auto !important;
@@ -81,11 +81,36 @@ body {
 .FALSE .option-true,
 .TRUE .option-false,
 .FALSE .option-true:hover,
-.TRUE .option-false:hover {
+.TRUE .option-false:hover, 
+.HILLARY .option-trump,
+.TRUMP .option-hillary, 
+.HILLARY .option-trump:hover,
+.TRUMP .option-hillary:hover {
     background: #717171;
     border-color: #a3a3a3;
 }
 
 .btn-primary {
     float: right;
+}
+
+
+
+/*	VOTING CANDIDATE	*/
+.candidate {
+	display: none;
+}
+
+.TRUE .candidate {
+	display: initial;
+}
+
+.image-container {
+    width: 100%;
+    margin-bottom: -40px;
+    margin-top: 40px;
+}
+
+.image-container img {
+    width: 50%;
 }

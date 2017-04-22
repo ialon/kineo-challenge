@@ -13,6 +13,7 @@ class Voting extends CI_Controller {
 		$this->load->helper('cookie');
 		$this->load->model('states');
 		$this->load->model('intention');
+		$this->load->model('votes');
 
 		$data['vote'] = '';
 		$data['state'] = '';
@@ -20,7 +21,19 @@ class Voting extends CI_Controller {
 
 		$data['kineo_state'] = get_cookie('kineo_state');
 		$data['kineo_intention'] = get_cookie('kineo_intention');
+		$data['kineo_candidate'] = get_cookie('kineo_candidate');
 
+
+		if (!$data['kineo_candidate']) {
+			if (isset($_GET['candidate'])) {
+				if ($_GET['candidate'] === 'TRUMP' ||
+					$_GET['candidate'] === 'HILLARY') {
+					$data['kineo_candidate'] = $_GET['candidate'];
+					$this->votes->writeVote($data['kineo_state'], $_GET['candidate']);
+					set_cookie('kineo_candidate', $_GET['candidate'], 2592000);
+				}
+			}
+		}
 
 
 
@@ -47,7 +60,7 @@ class Voting extends CI_Controller {
 
 
 
-		// DISPLAYING RESULTS
+		// DISPLAYING INTENTION RESULTS
 		$data['voting_results'] = '';
 		if ($data['vote'] === 'TRUE' ||
 			$data['vote'] === 'FALSE') {
@@ -76,7 +89,17 @@ class Voting extends CI_Controller {
 			'</div>';
 		}
 
-
+		$data['result_buttons'] = '';
+		if ($data['vote'] === 'TRUE' &&
+			($data['kineo_candidate'] === 'TRUMP' ||
+			$data['kineo_candidate'] === 'HILLARY')) {
+			$data['result_buttons'] =
+			'<div class="form-group">' .
+				'<div class="col-lg-10 col-lg-offset-2">' .
+					'<button type="submit" class="btn btn-primary">View results</button>' .
+				'</div>' .
+			'</div>';
+		}
 
 
 		// STATE MUST BE DEFINED

@@ -58,7 +58,7 @@
     </nav>
 
     <!-- Page Content -->
-    <div class="container">
+    <div class="container <?php echo $kineo_intention . ' ' . $kineo_candidate; ?>">
         <div class="row">
             <div class="col-lg-12">
                 <h1>Your selected state is:</h1>
@@ -77,7 +77,7 @@
 					<fieldset>
 						<div class="form-group yes-no-buttons">
 							<div class="col-lg-10">
-								<div class="btn-group btn-group-justified <?php echo $kineo_intention ?> ">
+								<div class="btn-group btn-group-justified">
 								    <a <?php echo ($kineo_intention ? 'disabled' : '') ?> href="voting?state=<?php echo $kineo_state ?>&vote=TRUE" class="btn btn-success option-true">YES!</a>
 								    <a <?php echo ($kineo_intention ? 'disabled' : '') ?> href="voting?state=<?php echo $kineo_state ?>&vote=FALSE" class="btn btn-danger option-false">NO</a>
 								</div>
@@ -92,34 +92,30 @@
             </div>
         </div>
 
-        <!-- <div class="row">
+        <div class="row candidate">
             <div class="col-lg-12">
                 <h1>3. Who are you going to vote for?</h1>
 
-	            <form class="form-horizontal">
-					<fieldset>
-						<div class="form-group">
-							<div class="col-lg-10">
-								<div class="btn-group btn-group-justified yes-no-buttons">
-								  <button class="btn btn-success">TRUMP</button>
-								  <button class="btn btn-danger">HILLARY</button>
-								</div>					
-								<div class="progress">
-									<div class="progress-bar progress-bar-danger" style="width: 80%"></div>
-								</div>
-							</div>
-						</div>
+                <form class="form-horizontal">
+                    <fieldset>
+                        <div class="form-group yes-no-buttons">
+                            <div class="col-lg-10">
+                                <div class="image-container">
+                                    <img alt="trump" src="./../static/img/trump.gif"><img alt="hillary" src="./../static/img/hillary.gif">
+                                </div>
+                                <div class="btn-group btn-group-justified">
+                                    <a <?php echo ($kineo_candidate ? 'disabled' : '') ?> href="voting?state=<?php echo $kineo_state ?>&vote=TRUE&candidate=TRUMP" class="btn btn-info option-trump">TRUMP</a>
+                                    <a <?php echo ($kineo_candidate ? 'disabled' : '') ?> href="voting?state=<?php echo $kineo_state ?>&vote=TRUE&candidate=HILLARY" class="btn btn-info option-hillary">HILLARY</a>
+                                </div>
+                            </div>
+                        </div>
 
-						<div class="form-group">
-							<div class="col-lg-10 col-lg-offset-2">
-								<button type="reset" class="btn btn-default">Reset</button>
-								<button type="submit" class="btn btn-primary">Submit my vote!</button>
-							</div>
-						</div>
-					</fieldset>
-				</form>
+                        <?php echo $result_buttons ?>
+
+                    </fieldset>
+                </form>
             </div>
-        </div> -->
+        </div>
     </div>
 </body>
 </html>
