@@ -54,3 +54,27 @@ body {
 #US_MAP path:first-child:hover {
 	fill: transparent;
 }
+
+
+
+
+/*	VOTING 	*/
+.yes-no-buttons {
+    width: 80%;
+    margin: auto !important;
+}
+
+.yes-no-buttons .progress {
+    background-color: #ff4136;
+}
+
+.yes-no-buttons button {
+    width: 50% !important;
+    height: 100px;
+    margin: 30px 0px !important;
+    font-size: 30px;
+}
+
+.btn-primary {
+    float: right;
+}

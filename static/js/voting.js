@@ -1,10 +1,17 @@
 
 	$(function() {
-	    console.log("Ready!");
+	    console.log("Ready! 1");
 
 	    var clear = function() {
 	    	$("#US_MAP path").removeClass("selected");
 	    	$("#US_MAP circle").removeClass("selected");
+	    }
+
+	    console.log($('option[selected]').value);
+		$('select[name=selector]').val()
+
+	    if ($('option[selected]').value) {
+	    	console.log('YES');
 	    }
 
 		$('button[type="reset"]').click(function() {
