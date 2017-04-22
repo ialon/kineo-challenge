@@ -1,0 +1,56 @@
+body {
+	margin-top: 100px;
+}
+
+.navbar {
+	min-height: 80px;
+}
+
+.navbar-brand {
+	padding: 20px 15px;
+}
+
+.navbar-inverse {
+    background-color: #25292a;
+    border-bottom-color: #464646;
+}
+
+
+
+
+/*	MAP	*/
+.st0 {
+	fill: #8fc73e;
+}
+
+.st1 {
+	fill: #8fc73e;
+	stroke: #FFFFFF;
+	stroke-width: 1.5;
+}
+
+.st2 {
+	fill: none;
+	stroke: #A9A9A9;
+	stroke-width: 2;
+}
+
+#map-container {
+	background-color: #e5eae8;
+    margin-top: 35px;
+}
+
+
+#US_MAP path.selected,
+#US_MAP circle.selected {
+	fill: #00b140;
+}
+
+#US_MAP path:hover,
+#US_MAP circle:hover {
+	fill: #eb1676;
+}
+
+#US_MAP path:first-child:hover {
+	fill: transparent;
+}
