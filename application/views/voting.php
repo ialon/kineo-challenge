@@ -86,7 +86,6 @@
 						</div>
 
 						<?php echo $voting_buttons ?>
-						<?php echo get_cookie('kineo_state') ?>
 
 					</fieldset>
 				</form>
