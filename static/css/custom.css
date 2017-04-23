@@ -1,5 +1,6 @@
 body {
-	margin-top: 100px;
+    margin-top: 100px;
+	margin-bottom: 100px;
 }
 
 .navbar-brand {
@@ -147,3 +148,68 @@ body {
 .image-container img {
     width: 50%;
 }
+
+
+
+
+/*  GRAPHS  */
+.ct-label {
+    font-size: 18px;
+    fill: white;
+}
+
+.nationwide-intention .ct-series-a path {
+    fill: #ff4136;
+}
+
+.nationwide-intention .ct-series-b path {
+    fill: #00b140;
+}
+
+.nationwide-candidate .ct-series-a path {
+    fill: #ff4136;
+}
+
+.nationwide-candidate .ct-series-b path {
+    fill: #75caeb;
+}
+
+.chart-labels .label:before {
+    content: '';
+    height: 20px;
+    width: 20px;
+    background: #ff4136;
+    font-size: 16px;
+    position: absolute;
+    margin-left: -25px;
+}
+
+.chart-labels .label {
+    color: #25292a;
+    font-size: 16px;
+    display: block;
+    text-align: left;
+    margin-left: 25px;
+}
+
+.chart-labels {
+    margin-top: 25px;
+}
+
+.chart-labels .label.voting:before {
+    background: #ff4136;
+}
+
+.chart-labels .label.not-voting:before {
+    background: #00b140;
+}
+
+.chart-labels .label.trump:before {
+    background: #ff4136;
+}
+
+.chart-labels .label.hillary:before {
+    background: #75caeb;
+}
+
+
