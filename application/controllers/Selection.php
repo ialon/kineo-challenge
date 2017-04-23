@@ -14,7 +14,7 @@ class Selection extends CI_Controller {
 		$this->load->model('states');
 
 		$data['states'] = $this->states->getAllStates();
-		$data['selected'] = get_cookie('kineo_state');
+		$data['kineo_state'] = get_cookie('kineo_state');
 
 		$this->load->view('selection', $data);
 	}

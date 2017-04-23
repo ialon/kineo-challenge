@@ -52,5 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'home';
 $route['voting'] = 'voting';
 $route['selection'] = 'selection';
+$route['clear_cookies'] = 'clear_cookies';
+$route['results'] = 'results';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

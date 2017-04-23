@@ -8,8 +8,14 @@
 		function getIntentionResults($state = '')
 		{
 			$results = new stdClass();
-			$results->voting = $this->db->query("SELECT * FROM intention WHERE intention=1")->num_rows();
-			$results->total = $this->db->query("SELECT * FROM intention")->num_rows();
+
+			if ($state) {
+				$results->voting = $this->db->query("SELECT * FROM intention WHERE intention=1 AND state='" . $state . "'")->num_rows();
+				$results->total = $this->db->query("SELECT * FROM intention WHERE state='" . $state . "'")->num_rows();
+			} else {
+				$results->voting = $this->db->query("SELECT * FROM intention WHERE intention=1")->num_rows();
+				$results->total = $this->db->query("SELECT * FROM intention")->num_rows();
+			}
 
 			return $results;
 		}

@@ -15,8 +15,7 @@ class Voting extends CI_Controller {
 		$this->load->model('intention');
 		$this->load->model('votes');
 
-		$data['vote'] = '';
-		$data['state'] = '';
+		$data['state_fullname'] = '';
 		$statenames = [];
 
 		$data['kineo_state'] = get_cookie('kineo_state');
@@ -29,8 +28,8 @@ class Voting extends CI_Controller {
 				if ($_GET['candidate'] === 'TRUMP' ||
 					$_GET['candidate'] === 'HILLARY') {
 					$data['kineo_candidate'] = $_GET['candidate'];
-					$this->votes->writeVote($data['kineo_state'], $_GET['candidate']);
-					set_cookie('kineo_candidate', $_GET['candidate'], 2592000);
+					$this->votes->writeVote($data['kineo_state'], $data['kineo_candidate']);
+					set_cookie('kineo_candidate', $data['kineo_candidate'], 2592000);
 				}
 			}
 		}
@@ -38,32 +37,34 @@ class Voting extends CI_Controller {
 
 
 		// INTENTION TO VOTE VALIDATION
-		if (isset($_GET['vote'])) {
-			$data['vote'] = $_GET['vote'];
-
+		if ($data['kineo_state']) {
 			if ($data['kineo_intention']) {
-				if ($data['kineo_intention'] != $_GET['vote']) {
+				if (isset($_GET['vote'])) {
+					if ($data['kineo_intention'] !== $_GET['vote']) {
+						redirect('./voting?state=' . $data['kineo_state'] . '&vote=' . $data['kineo_intention']);
+					}
+				} else {
 					redirect('./voting?state=' . $data['kineo_state'] . '&vote=' . $data['kineo_intention']);
 				}
 			} else {
-				if ($data['kineo_state'] && ($_GET['vote'] === 'TRUE' || $_GET['vote'] === 'FALSE')) {
-					$this->intention->writeVoteIntention($data['kineo_state'], $_GET['vote']);
-					$data['kineo_intention'] = $_GET['vote'];
-					set_cookie('kineo_intention', $_GET['vote'], 2592000);
-				} else {
-					redirect('./voting?state=' . $data['kineo_state']);
+				if (isset($_GET['vote'])) {
+					if ($_GET['vote'] === 'TRUE' || $_GET['vote'] === 'FALSE') {
+						$this->intention->writeVoteIntention($data['kineo_state'], $_GET['vote']);
+						$data['kineo_intention'] = $_GET['vote'];
+						set_cookie('kineo_intention', $_GET['vote'], 2592000);
+					} else {
+						redirect('./voting?state=' . $data['kineo_state']);
+					}
 				}
 			}
-		} else if ($data['kineo_state'] && $data['kineo_intention']) {
-			redirect('./voting?state=' . $data['kineo_state'] . '&vote=' . $data['kineo_intention']);
 		}
 
 
 
 		// DISPLAYING INTENTION RESULTS
 		$data['voting_results'] = '';
-		if ($data['vote'] === 'TRUE' ||
-			$data['vote'] === 'FALSE') {
+		if ($data['kineo_intention'] === 'TRUE' ||
+			$data['kineo_intention'] === 'FALSE') {
 
 			$results = $this->intention->getIntentionResults();
 
@@ -79,44 +80,42 @@ class Voting extends CI_Controller {
 			}
 		}
 
-		$data['voting_buttons'] = '';
-		if ($data['vote'] === 'FALSE') {
-			$data['voting_buttons'] =
+		$data['result_buttons'] = '';
+		if ($data['kineo_intention'] === 'FALSE' ||
+			($data['kineo_intention'] === 'TRUE' &&
+			($data['kineo_candidate'] === 'TRUMP' ||
+			$data['kineo_candidate'] === 'HILLARY'))) {
+			$data['result_buttons'] =
 			'<div class="form-group">' .
 				'<div class="col-lg-10 col-lg-offset-2">' .
-					'<button type="submit" class="btn btn-primary">View results</button>' .
+					'<a href="results" class="btn btn-primary">View results</a>' .
 				'</div>' .
 			'</div>';
 		}
 
-		$data['result_buttons'] = '';
-		if ($data['vote'] === 'TRUE' &&
-			($data['kineo_candidate'] === 'TRUMP' ||
-			$data['kineo_candidate'] === 'HILLARY')) {
-			$data['result_buttons'] =
-			'<div class="form-group">' .
-				'<div class="col-lg-10 col-lg-offset-2">' .
-					'<button type="submit" class="btn btn-primary">View results</button>' .
-				'</div>' .
-			'</div>';
-		}
 
 
 		// STATE MUST BE DEFINED
 		if ($data['kineo_state']) {
 			if (!isset($_GET['state'])) {
 				redirect('./voting?state=' . $data['kineo_state']);
-			} else if ($data['kineo_state'] != $_GET['state']) {
+			} else if ($data['kineo_state'] !== $_GET['state']) {
+				if (!$data['kineo_intention']) {
+					$data['kineo_state'] = $_GET['state'];
+					delete_cookie('kineo_state');
+				}
+				
 				redirect('./voting?state=' . $data['kineo_state']);
 			}
-		} 
+		}
 
 		if (isset($_GET['state'])) {
 			$statenames = $this->states->getName($_GET['state']);
-			set_cookie('kineo_state', $_GET['state'], 2592000);
 
 			if ($statenames) {
-				$data['state'] = $_GET['state'] . ' - ' . $statenames[0]->name;
+				$data['kineo_state'] = $_GET['state'];
+				set_cookie('kineo_state', $data['kineo_state'], 2592000);
+				$data['state_fullname'] = $data['kineo_state'] . ' - ' . $statenames[0]->name;
 				$this->load->view('voting', $data);
 			} else {
 				redirect('./selection');

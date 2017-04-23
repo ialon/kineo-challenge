@@ -24,41 +24,32 @@
 </head>
 
 <body>
-    <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button> -->
+                </button>
                 <a class="navbar-brand" href="./../">
                     <img src="./../static/img/kineo.png" alt="Logo" height="40">
                 </a>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <!-- <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">About</a>
+                        <a href="./../">Home</a>
                     </li>
                     <li>
-                        <a href="#">Services</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
+                        <a href="./results">Results</a>
                     </li>
                 </ul>
-            </div> -->
-            <!-- /.navbar-collapse -->
+            </div>
         </div>
-        <!-- /.container -->
     </nav>
 
-    <!-- Page Content -->
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -71,7 +62,7 @@
 							<label for="select" class="col-lg-2 control-label">State:</label>
 							<div class="col-lg-10">
 								<select required name="state" class="form-control" id="select_state">
-									<option disabled <?php echo (!$selected ? 'selected' : '') ?> value="">-- Select a state --</option>
+									<option disabled <?php echo (!$kineo_state ? 'selected' : '') ?> value="">-- Select a state --</option>
 									<?php
 										foreach ($states as $state) {
 											$option =
@@ -79,7 +70,7 @@
 												$state->abbreviation .
 												'"';
 
-											if ($selected == $state->abbreviation) {
+											if ($kineo_state === $state->abbreviation) {
 												$option .= ' selected';
 											}
 

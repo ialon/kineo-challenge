@@ -5,14 +5,20 @@
 			parent::__construct();
 		}
 
-		// function getIntentionResults($state = '')
-		// {
-		// 	$results = new stdClass();
-		// 	$results->voting = $this->db->query("SELECT * FROM intention WHERE intention=1")->num_rows();
-		// 	$results->total = $this->db->query("SELECT * FROM intention")->num_rows();
+		function getResults($state)
+		{
+			$results = new stdClass();
 
-		// 	return $results;
-		// }
+			if ($state) {
+				$results->trump = $this->db->query("SELECT * FROM votes WHERE candidate='TRUMP' AND state='" . $state . "'")->num_rows();
+				$results->hillary = $this->db->query("SELECT * FROM votes WHERE candidate='HILLARY' AND state='" . $state . "'")->num_rows();
+			} else {
+				$results->trump = $this->db->query("SELECT * FROM votes WHERE candidate='TRUMP'")->num_rows();
+				$results->hillary = $this->db->query("SELECT * FROM votes WHERE candidate='HILLARY'")->num_rows();
+			}
+
+			return $results;
+		}
 
 		function writeVote($state, $candidate)
 		{
