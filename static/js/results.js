@@ -1,13 +1,19 @@
 
 $(function() {
-    console.log("Ready to show results! 3");
+    console.log("Ready to show results! 7");
+
+	var x1 = Number($('.nationwide-intention').attr('voting'));
+	var x2 = Number($('.nationwide-intention').attr('notvoting'));
 
     var intentionData = {
-		series: [20, 15]
+		series: [x1, x2]
 	};
 
+	var y1 = Number($('.nationwide-candidate').attr('trump'));
+	var y2 = Number($('.nationwide-candidate').attr('hillary'));
+
     var candidateData = {
-		series: [40, 105]
+		series: [y1, y2]
 	};
 
 	var sum = function(a, b) { return a + b };
@@ -24,21 +30,16 @@ $(function() {
 		}
 	};
 
-	// var responsiveOptions = [
-	// 	['screen and (min-width: 640px)', {
-	// 		chartPadding: 30,
-	// 		labelOffset: 50,
-	// 		labelDirection: 'explode',
-	// 		labelInterpolationFnc: function(value) {
-	// 			return value;
-	// 		}
-	// 	}],
-	// 	['screen and (min-width: 1024px)', {
-	// 		labelOffset: 40,
-	// 		chartPadding: 20
-	// 	}]
-	// ];
 
-	new Chartist.Pie('.nationwide-intention', intentionData, intentionOptions);
-	new Chartist.Pie('.nationwide-candidate', candidateData, candidateOptions);
+	if (x1 > 0 || x2 > 0) {
+		new Chartist.Pie('.nationwide-intention', intentionData, intentionOptions);
+	} else {
+		$('.nationwide-intention').text('No votes registered yet');
+	}
+
+	if (y1 > 0 || y2 > 0) {
+		new Chartist.Pie('.nationwide-candidate', candidateData, candidateOptions);
+	} else {
+		$('.nationwide-candidate').text('No votes registered yet');
+	}
 });

@@ -5,7 +5,7 @@
 			parent::__construct();
 		}
 
-		function getIntentionResults($state = '')
+		function getIntentionResults($state = NULL)
 		{
 			$results = new stdClass();
 

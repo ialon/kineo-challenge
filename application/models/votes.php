@@ -5,7 +5,7 @@
 			parent::__construct();
 		}
 
-		function getResults($state)
+		function getResults($state = NULL)
 		{
 			$results = new stdClass();
 

@@ -62,7 +62,7 @@
                 <h3>Intention to vote:</h3>
                 <br>
                 <div class="chart">
-                    <div class="nationwide-intention ct-golden-section">
+                    <div class="nationwide-intention ct-golden-section" voting="<?php echo $voting ?>" notvoting="<?php echo $notvoting ?>">
                     </div>
                 </div>
                 <div class="chart-labels">
@@ -74,13 +74,54 @@
                 <h3>Preferred candidate:</h3>
                 <br>
                 <div class="chart">
-                    <div class="nationwide-candidate ct-golden-section">
+                    <div class="nationwide-candidate ct-golden-section" trump="<?php echo $trump ?>" hillary="<?php echo $hillary ?>">
                     </div>
                 </div>
                 <div class="chart-labels">
                     <div class="label trump">Trump</div>
                     <div class="label hillary">Hillary</div>
                 </div>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Results by state:</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-striped table-hover ">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Code</th>
+                            <th>State</th>
+                            <th>Voting/Not voting</th>
+                            <th>Trump (%)</th>
+                            <th>Hillary (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                            $num = 1;
+                            foreach ($states as $state) {
+                                $row = '<tr>' .
+                                    '<td>' . $num . '</td>' .
+                                    '<td>' . $state->abbreviation . '</td>' .
+                                    '<td>' . $state->name . '</td>' .
+                                    '<td>' . $state->voting . '</td>' .
+                                    '<td>' . $state->trump . '</td>' .
+                                    '<td>' . $state->hillary . '</td>' .
+                                '</tr>';
+
+                                echo $row;
+
+                                $num = $num + 1;
+                            }
+                        ?>
+                    </tbody>
+                </table> 
             </div>
         </div>
     </div>
