@@ -59,7 +59,6 @@
 	                <li>If you are, who are going to vote for</li>
 	                <li>View results!</li>
                 </ol>
-                <p>Don't forget to share on social media!</p>
 
 				<a class="btn btn-primary" href="./index.php/selection">Get started!</a>
             </div>
